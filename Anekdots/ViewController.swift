@@ -64,7 +64,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func pushRefreshButtonAction(_ sender: Any) {
         
         getRandomAnekdot2{ (jokeText) in
-            //self.labelAnekdots.text = jokeText
+            //test git changes
             self.textView.text = jokeText
        }
     }
