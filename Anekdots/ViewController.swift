@@ -45,7 +45,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             finalRow = row+1
         }
         typeJokeId = String(finalRow)
-        print(typeJokeId)
+        //print(typeJokeId)
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
