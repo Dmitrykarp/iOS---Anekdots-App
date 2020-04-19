@@ -7,10 +7,11 @@
 //
 
 import UIKit
+var typeJokeId = "1"
 
 func getRandomAnekdot2(block: (_ testAnekdot: String)->Void){
     //http://rzhunemogu.ru/RandJSON.aspx?CType=1
-    if let urlRandomJoke = URL(string: "http:rzhunemogu.ru/RandJSON.aspx?CType=1") {
+    if let urlRandomJoke = URL(string: "http:rzhunemogu.ru/RandJSON.aspx?CType=\(typeJokeId)") {
         do{
             let dataJSON = try String(contentsOf: urlRandomJoke, encoding: String.Encoding.windowsCP1251)
             let start = dataJSON.index(dataJSON.startIndex, offsetBy: 12)
@@ -39,7 +40,28 @@ func getRandomAnekdot2(block: (_ testAnekdot: String)->Void){
 
 
 
-class ViewController: UIViewController, XMLParserDelegate {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    var typeJoke = ["Анекдот","Рассказ","Стишок","Афоризм","Цитата","Тост","Статус","Анекдот (18+)","Рассказ (18+)","Стишок (18+)","Афоризм (18+)","Цитата (18+)","Тост (18+)","Статус (18+)"]
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return typeJoke.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        typeJokeId = String(row+1)
+        print(typeJokeId)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return typeJoke[row]
+    }
+    
+    @IBOutlet weak var picker: UIPickerView!
     
     @IBOutlet weak var labelAnekdots: UILabel!
     var currentParsingElement = ""
@@ -60,6 +82,8 @@ class ViewController: UIViewController, XMLParserDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        picker.delegate = self
+        picker.dataSource = self
         // Do any additional setup after loading the view.
     }
 
